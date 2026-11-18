@@ -1,0 +1,127 @@
+/* TEMPLATES: page-level layout only. Colors and details live in components.css. */
+
+.landing,
+.grid-page,
+.detail,
+.article {
+  width: 100%;
+  max-width: var(--page-width);
+  margin-inline: auto;
+  padding-inline: var(--page-gutter);
+}
+
+/* Landing */
+.landing__hero {
+  padding-block: var(--space-6) var(--space-8);
+}
+
+.landing__intro {
+  padding-block: var(--space-6);
+  border-block: 1px solid var(--color-line);
+}
+
+.landing__featured {
+  padding-block: var(--space-8);
+}
+
+/* Grid */
+.grid-page {
+  padding-block: var(--space-7) var(--space-8);
+}
+
+.grid-page__heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+
+.grid-page__controls {
+  display: grid;
+  gap: var(--space-4);
+  margin-bottom: var(--space-7);
+}
+
+.grid-page__pagination {
+  margin-top: var(--space-7);
+}
+
+/* Detail */
+.detail {
+  padding-block: var(--space-5) var(--space-8);
+}
+
+.detail__back {
+  margin-bottom: var(--space-5);
+}
+
+.detail__main {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: clamp(var(--space-6), 5vw, var(--space-8));
+  align-items: start;
+}
+
+.detail__main--text-only {
+  grid-template-columns: minmax(0, var(--reading-width));
+}
+
+.detail__media {
+  position: sticky;
+  top: calc(var(--header-height) + var(--space-4));
+}
+
+.detail__related {
+  margin-top: var(--space-8);
+  padding-top: var(--space-7);
+  border-top: 1px solid var(--color-line);
+}
+
+/* Article */
+.article {
+  padding-block: var(--space-7) var(--space-8);
+}
+
+.article__heading {
+  max-width: 56rem;
+  margin-bottom: var(--space-7);
+}
+
+.article__columns {
+  display: grid;
+  grid-template-columns: 13rem minmax(0, var(--reading-width));
+  gap: clamp(var(--space-6), 7vw, 7rem);
+  align-items: start;
+}
+
+.article__columns--single {
+  grid-template-columns: minmax(0, var(--reading-width));
+}
+
+.article__aside {
+  position: sticky;
+  top: calc(var(--header-height) + var(--space-5));
+}
+
+.article__body > section + section {
+  margin-top: var(--space-8);
+}
+
+.article__body p + p,
+.article__body section > * + * {
+  margin-top: var(--space-4);
+}
+
+@media (max-width: 56rem) {
+  .detail__main,
+  .article__columns {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .detail__media,
+  .article__aside {
+    position: static;
+  }
+}

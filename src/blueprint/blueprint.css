@@ -1,0 +1,373 @@
+/* BLUEPRINT MODE
+   The blue theme is only a new set of token values. No component has its own
+   "blueprint colors". They all read the same tokens. */
+
+:root {
+  --bp-layout: #ffd166;
+  --bp-template: #7fe7ff;
+  --bp-slot: #ffffff;
+  --bp-component: #ff9ecb;
+  --bp-dark: #06183d;
+  --bp-panel-width: 24rem;
+}
+
+:root[data-blueprint='on'] {
+  --color-paper: #0c2c6e;
+  --color-ink: #eef4ff;
+  --color-muted: #b9ccf2;
+  --color-line: #3f62ad;
+  --color-mat: #123a8a;
+  --color-accent: #7fe7ff;
+  --color-on-accent: var(--bp-dark);
+}
+
+:root[data-blueprint='on'] body {
+  background-color: var(--color-paper);
+  background-image:
+    linear-gradient(rgb(255 255 255 / 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 0.05) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+:root[data-blueprint='on'] .site {
+  padding-right: var(--bp-panel-width);
+}
+
+:root[data-blueprint='on'] .site-header,
+:root[data-blueprint='on'] .site-footer {
+  background-color: var(--color-paper);
+}
+
+/* Outlines and name tags */
+:root[data-blueprint='on'] [data-part] {
+  outline: 1px solid var(--part-color);
+  outline-offset: -1px;
+}
+
+/* Sticky parts are left alone because they already anchor their name tags. */
+:root[data-blueprint='on'] [data-part]:not(.site-header, .detail__media, .article__aside) {
+  position: relative;
+}
+
+:root[data-blueprint='on'] [data-part]::before {
+  content: attr(data-name);
+  position: absolute;
+  z-index: 6;
+  top: 0;
+  left: 0;
+  max-width: 100%;
+  overflow: hidden;
+  padding: 1px 6px;
+  background: var(--part-color);
+  color: var(--bp-dark);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.5;
+  text-overflow: ellipsis;
+  text-transform: none;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+[data-part='layout'] {
+  --part-color: var(--bp-layout);
+}
+
+[data-part='template'] {
+  --part-color: var(--bp-template);
+}
+
+[data-part='slot'] {
+  --part-color: var(--bp-slot);
+}
+
+[data-part='component'] {
+  --part-color: var(--bp-component);
+}
+
+:root[data-blueprint='on'] [data-part='layout']::before {
+  right: 0;
+  left: auto;
+}
+
+:root[data-blueprint='on'] [data-part='slot'] {
+  outline-style: dashed;
+  padding-top: var(--space-6);
+}
+
+:root[data-blueprint='on'] [data-part='template'] {
+  padding-top: var(--space-6);
+}
+
+/* Extra room so name tags never cover the content they describe.
+   Cards are skipped because their tags sit on the empty mat. */
+:root[data-blueprint='on'] [data-part='component']:not(.card) {
+  padding-top: var(--space-5);
+}
+
+/* Header switch */
+.bp-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 2.75rem;
+  padding: 0;
+  background: none;
+  border: 0;
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.bp-switch__track {
+  display: inline-block;
+  width: 2.25rem;
+  height: 1.25rem;
+  padding: 2px;
+  background: var(--color-line);
+  border-radius: 999px;
+  transition: background var(--speed);
+}
+
+.bp-switch__knob {
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  background: var(--color-ink);
+  border-radius: 50%;
+  transition: transform var(--speed);
+}
+
+.bp-switch[aria-checked='true'] .bp-switch__track {
+  background: var(--bp-template);
+}
+
+.bp-switch[aria-checked='true'] .bp-switch__knob {
+  background: var(--bp-dark);
+  transform: translateX(1rem);
+}
+
+/* Panel */
+.bp-panel {
+  position: fixed;
+  z-index: 40;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: var(--bp-panel-width);
+  overflow-y: auto;
+  background: var(--bp-dark);
+  border-left: 1px solid var(--color-line);
+  color: #eef4ff;
+  font-size: 0.8125rem;
+}
+
+.bp-panel section {
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid #1f3d78;
+}
+
+.bp-panel h2,
+.bp-panel h3 {
+  margin-bottom: var(--space-3);
+  color: var(--bp-template);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.bp-panel h3 {
+  margin-top: var(--space-4);
+  margin-bottom: var(--space-2);
+}
+
+.bp-facts {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.bp-facts > div {
+  display: grid;
+  grid-template-columns: 4.75rem minmax(0, 1fr);
+  gap: var(--space-2);
+}
+
+.bp-facts dt {
+  color: #b9ccf2;
+}
+
+.bp-facts dd {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  overflow-wrap: anywhere;
+}
+
+.bp-facts__value {
+  color: var(--bp-layout);
+}
+
+.bp-legend {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.bp-legend li {
+  display: grid;
+  grid-template-columns: 1rem 5.25rem minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.bp-legend li > span:last-child {
+  color: #b9ccf2;
+}
+
+.bp-legend__swatch {
+  width: 0.875rem;
+  height: 0.875rem;
+  border: 2px solid;
+}
+
+.bp-legend__swatch--layout {
+  border-color: var(--bp-layout);
+}
+
+.bp-legend__swatch--template {
+  border-color: var(--bp-template);
+}
+
+.bp-legend__swatch--slot {
+  border-color: var(--bp-slot);
+  border-style: dashed;
+}
+
+.bp-legend__swatch--component {
+  border-color: var(--bp-component);
+}
+
+.bp-segments {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border: 1px solid #3f62ad;
+}
+
+.bp-segments label {
+  position: relative;
+  cursor: pointer;
+}
+
+.bp-segments input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.bp-segments span {
+  display: block;
+  padding: var(--space-2) var(--space-1);
+  text-align: center;
+}
+
+.bp-segments input:checked + span {
+  background: var(--bp-template);
+  color: var(--bp-dark);
+  font-weight: 600;
+}
+
+.bp-segments input:focus-visible + span {
+  outline: 2px solid #ffffff;
+  outline-offset: 1px;
+}
+
+.bp-note {
+  color: #b9ccf2;
+}
+
+.bp-requests {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.bp-requests button {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  padding: var(--space-2);
+  background: transparent;
+  border: 1px solid #1f3d78;
+  color: inherit;
+  text-align: left;
+}
+
+.bp-requests button[aria-pressed='true'] {
+  border-color: var(--bp-template);
+}
+
+.bp-requests__url {
+  overflow: hidden;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bp-requests__time {
+  color: #b9ccf2;
+  font-size: 0.6875rem;
+  white-space: nowrap;
+}
+
+.bp-status {
+  padding: 0 var(--space-1);
+  color: var(--bp-dark);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+}
+
+.bp-status--pending {
+  background: var(--bp-layout);
+}
+
+.bp-status--success {
+  background: #8ff0b0;
+}
+
+.bp-status--error {
+  background: #ff9c8f;
+}
+
+.bp-json {
+  max-height: 22rem;
+  margin: 0;
+  padding: var(--space-3);
+  overflow: auto;
+  background: #030e27;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1.5;
+}
+
+/* On smaller screens the panel becomes a sheet along the bottom */
+@media (max-width: 64rem) {
+  :root[data-blueprint='on'] .site {
+    padding-right: 0;
+    padding-bottom: 45vh;
+  }
+
+  .bp-panel {
+    top: auto;
+    left: 0;
+    width: 100%;
+    height: 45vh;
+    border-top: 1px solid var(--color-line);
+    border-left: 0;
+  }
+}
